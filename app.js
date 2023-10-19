@@ -17,11 +17,14 @@ const request = require("request"),
   express = require("express"),
   body_parser = require("body-parser"),
   axios = require("axios").default,
-  app = express().use(body_parser.json()); // creates express http server
+  app = express().use(body_parser.json()), // creates express http server
+  cors = require('cors'),
+  corss = express().use(cors());
 
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
+
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
