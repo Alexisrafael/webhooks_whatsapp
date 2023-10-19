@@ -92,7 +92,17 @@ app.get("/webhook", (req, res) => {
       //console.log("WEBHOOK_VERIFIED");
       //console.log(challenge.entry.changes[0].statuses[0]);
       //return challenge.entry.changes[0].statuses[0];
-      res.status(200).send(challenge.entry.changes[0].statuses[0]);
+      // Realiza una solicitud POST a tu aplicación Rails
+      axios.post('http://localhost:3000/save_data_from_external_source', challenge)
+        .then(response => {
+          console.log('Datos guardados exitosamente en Rails:', response.data);
+          res.status(200).send(challenge);
+        })
+        .catch(error => {
+          console.error('Error al guardar datos en Rails:', error);
+          res.sendStatus(500); // o cualquier otro código de error adecuado
+        });
+      //res.status(200).send(challenge.entry.changes[0].statuses[0]);
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
       res.sendStatus(403);
