@@ -13,16 +13,12 @@
 const token = process.env.WHATSAPP_TOKEN;
 
 // Imports dependencies and set up http server
-/*const request = require("request"),
+const request = require("request"),
   express = require("express"),
   body_parser = require("body-parser"),
   axios = require("axios").default,
-  app = express().use(body_parser.json());*/ // creates express http server
-const request = require("request");
-const express = require("express");
-const body_parser = require("body-parser");
-const axios = require("axios");
-const app = express().use(body_parser.json());
+  app = express().use(body_parser.json()); // creates express http server
+
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -72,7 +68,7 @@ app.post("/webhook", (req, res) => {
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests
-app.get("/webhook", async (req, res) => {
+app.get("/webhook", (req, res) => {
   /**
    * UPDATE YOUR VERIFY TOKEN
    *This will be the Verify Token value when you set up webhook
@@ -89,11 +85,11 @@ app.get("/webhook", async (req, res) => {
     // Check the mode and token sent are correct
     if (mode === "subscribe" && token === verify_token) {
       // Respond with 200 OK and challenge token from the request
-      //console.log("WEBHOOK_VERIFIED");
+      console.log("WEBHOOK_VERIFIED");
       //console.log(challenge.entry.changes[0].statuses[0]);
       //return challenge.entry.changes[0].statuses[0];
       // Realiza una solicitud POST a tu aplicación Rails
-      await axios.post('http://localhost:3000/static_resources/api/v1/whatsapp_datas/save', challenge)
+      /*axios.post('http://localhost:3000/static_resources/api/v1/whatsapp_datas/save', challenge)
         .then(response => {
           console.log('Datos guardados exitosamente en Rails:', response.data);
           //res.status(200).send(challenge);
@@ -101,8 +97,8 @@ app.get("/webhook", async (req, res) => {
         .catch(error => {
           console.error('Error al guardar datos en Rails:', error);
           //res.sendStatus(500); // o cualquier otro código de error adecuado
-        });
-      //res.status(200).send(challenge.entry.changes[0].statuses[0]);
+        });*/
+      res.status(200).send(challenge);
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
       res.sendStatus(403);
