@@ -93,7 +93,7 @@ app.get("/webhook", async (req, res) => {
       //console.log(challenge.entry.changes[0].statuses[0]);
       //return challenge.entry.changes[0].statuses[0];
       // Realiza una solicitud POST a tu aplicación Rails
-      await axios.post('http://localhost:3000/static_resources/api/v1/whatsapp_data/save_data_from_external_source', challenge)
+      await axios.post('http://localhost:3000/static_resources/api/v1/whatsapp_datas/save', challenge)
         .then(response => {
           console.log('Datos guardados exitosamente en Rails:', response.data);
           //res.status(200).send(challenge);
