@@ -31,16 +31,19 @@ app.post("/webhook", (req, res) => {
   // Check the Incoming webhook message
   //console.log(JSON.stringify(req.body, null, 2));
   let ar = JSON.stringify(req.body, null, 2)
-  console.log(JSON.parse(ar).entry)
-  axios.post('http://localhost:3000//static_resources/api/v1/whatsapp_datas/save', ar)
+  let data = {
+    data: JSON.parse(ar).entry
+  }
+  //console.log(req.body)
+  axios.post('http://localhost:3000//static_resources/api/v1/whatsapp_datas/save', body)
         .then(response => {
           console.log('Datos guardados exitosamente en Rails:', response.data);
-          res.status(200).send(response.data);
-        })
-        .catch(error => {
-          console.error('Error al guardar datos en Rails:', error);
-          res.sendStatus(500); // o cualquier otro código de error adecuado
-        });
+      res.status(200).send(response.data);
+    })
+    .catch(error => {
+      console.error('Error al guardar datos en Rails:', error);
+      res.sendStatus(500); // o cualquier otro código de error adecuado
+    });
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
     if (
@@ -99,20 +102,7 @@ app.get("/webhook", (req, res) => {
       //console.log(challenge.entry.changes[0].statuses[0]);
       //return challenge.entry.changes[0].statuses[0];
       //Realiza una solicitud POST a tu aplicación Rails
-      const ar = {
-        all: challenge
-      }
-      debugger
-      axios.post('http://localhost:3000//static_resources/api/v1/whatsapp_datas/save', ar)
-        .then(response => {
-          console.log('Datos guardados exitosamente en Rails:', response.data);
-          res.status(200).send(challenge);
-        })
-        .catch(error => {
-          console.error('Error al guardar datos en Rails:', error);
-          res.sendStatus(500); // o cualquier otro código de error adecuado
-        });
-      //res.status(200).send(challenge);
+      res.status(200).send(challenge);
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
       res.sendStatus(403);
