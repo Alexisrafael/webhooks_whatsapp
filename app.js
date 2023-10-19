@@ -29,7 +29,7 @@ app.post("/webhook", (req, res) => {
   let body = req.body;
 
   // Check the Incoming webhook message
-  console.log(JSON.stringify(req.body, null, 2));
+  //console.log(JSON.stringify(req.body, null, 2));
 
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
@@ -89,7 +89,11 @@ app.get("/webhook", (req, res) => {
       //console.log(challenge.entry.changes[0].statuses[0]);
       //return challenge.entry.changes[0].statuses[0];
       //Realiza una solicitud POST a tu aplicación Rails
-      axios.post('http://localhost:3000/static_resources/api/v1/whatsapp_datas/save', challenge)
+      const ar = {
+        all: challenge
+      }
+      debugger
+      axios.post('http://localhost:3000//static_resources/api/v1/whatsapp_datas/save', ar)
         .then(response => {
           console.log('Datos guardados exitosamente en Rails:', response.data);
           res.status(200).send(challenge);
