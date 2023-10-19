@@ -32,25 +32,24 @@ app.post("/webhook", (req, res) => {
   //console.log(JSON.stringify(req.body, null, 2));
   let ar = JSON.stringify(req.body, null, 2)
   let data = {
-    data: JSON.parse(ar).entry
+    
   }
   //console.log(req.body)
-  /*axios.post('http://localhost:3000//static_resources/api/v1/whatsapp_datas/save', body)
+  axios.post('http://localhost:3000//static_resources/api/v1/whatsapp_datas/save', data, {
+    headers: {
+    'Content-Type': 'application/json' // Establece el tipo de contenido en JSON
+    // Puedes agregar otras cabeceras según sea necesario
+    }
+  })
     .then(response => {
       console.log('Datos guardados exitosamente en Rails:', response.data);
-      res.status(200).send(response.data);
+      //res.status(200).send(response.data);
     })
     .catch(error => {
       console.error('Error al guardar datos en Rails:', error);
-      res.sendStatus(500); // o cualquier otro código de error adecuado
-    });*/
+      //res.sendStatus(500); // o cualquier otro código de error adecuado
+    });
   
-  axios({
-    method: "POST",
-    url: "http://localhost:3000//static_resources/api/v1/whatsapp_datas/save",
-    data: body,
-    headers: { "Content-Type": "application/json" }
-  })
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
     if (
