@@ -72,7 +72,7 @@ app.post("/webhook", (req, res) => {
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests
-app.get("/webhook", (req, res) => {
+app.get("/webhook", async (req, res) => {
   /**
    * UPDATE YOUR VERIFY TOKEN
    *This will be the Verify Token value when you set up webhook
@@ -93,14 +93,14 @@ app.get("/webhook", (req, res) => {
       //console.log(challenge.entry.changes[0].statuses[0]);
       //return challenge.entry.changes[0].statuses[0];
       // Realiza una solicitud POST a tu aplicación Rails
-      axios.post('http://localhost:3000/save_data_from_external_source', challenge)
+      await axios.post('http://localhost:3000/save_data_from_external_source', challenge)
         .then(response => {
           console.log('Datos guardados exitosamente en Rails:', response.data);
-          res.status(200).send(challenge);
+          //res.status(200).send(challenge);
         })
         .catch(error => {
           console.error('Error al guardar datos en Rails:', error);
-          res.sendStatus(500); // o cualquier otro código de error adecuado
+          //res.sendStatus(500); // o cualquier otro código de error adecuado
         });
       //res.status(200).send(challenge.entry.changes[0].statuses[0]);
     } else {
