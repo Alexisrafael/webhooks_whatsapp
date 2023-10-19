@@ -27,7 +27,7 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", (req, res) => {
+app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
 
@@ -40,13 +40,13 @@ app.post("/webhook", (req, res) => {
     msg_body: req.body.entry[0].changes[0].value.messages[0].text.body
   }
   //console.log(req.body)
-  axios.post('http://localhost:3000//static_resources/api/v1/whatsapp_datas/save', {
+  await axios.post('http://localhost:3000/static_resources/api/v1/whatsapp_datas/save', body/*{
     data: body
-    /*headers: {
+    headers: {
     'Content-Type': 'application/json' // Establece el tipo de contenido en JSON
     // Puedes agregar otras cabeceras según sea necesario
-    }*/
-  }).then(response => {
+    }
+  }*/).then(response => {
       console.log('Datos guardados exitosamente en Rails:', response.data);
       //res.status(200).send(response.data);
     })
