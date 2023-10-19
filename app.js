@@ -36,7 +36,7 @@ app.post("/webhook", (req, res) => {
   let ar = JSON.stringify(req.body, null, 2)
   let data = {
     phone_number_id: req.body.entry[0].changes[0].value.metadata.phone_number_id,
-    from: req.body.entry[0].changes[0].value.messages[0].from,
+    from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
     msg_body: req.body.entry[0].changes[0].value.messages[0].text.body
   }
   //console.log(req.body)
