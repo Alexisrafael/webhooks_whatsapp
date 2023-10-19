@@ -32,8 +32,8 @@ app.post("/webhook", (req, res) => {
   let body = req.body;
 
   // Check the Incoming webhook message
-  //console.log(JSON.stringify(req.body, null, 2));
-  let ar = JSON.stringify(req.body, null, 2)
+  console.log(JSON.stringify(req.body, null, 2));
+  /*let ar = JSON.stringify(req.body, null, 2)
   let data = {
     phone_number_id: req.body.entry[0].changes[0].value.metadata.phone_number_id,
     from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
@@ -53,7 +53,7 @@ app.post("/webhook", (req, res) => {
     .catch(error => {
       console.error('Error al guardar datos en Rails:', error);
       //res.sendStatus(500); // o cualquier otro código de error adecuado
-    });
+    });*/
   
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
