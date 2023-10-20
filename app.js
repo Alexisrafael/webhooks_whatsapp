@@ -32,13 +32,13 @@ app.post("/webhook", async (req, res) => {
   let body = req.body;
 
   // Check the Incoming webhook message
-  //console.log(JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(req.body, null, 2));
   let ar = JSON.stringify(req.body, null, 2)
   let data = {
     phone_number_id: req.body.entry[0].changes[0].value.metadata.phone_number_id,
     //msg_body: req.body.entry[0].changes[0].value.messages[0].text.body
   }//from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
-  console.log(req.body)
+  //console.log(req.body)
   /*await axios.post('http://localhost:3000/static_resources/api/v1/whatsapp_datas/save', body{
     data: body
     headers: {
