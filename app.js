@@ -36,7 +36,7 @@ app.post("/webhook", async (req, res) => {
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   await axios.post('http://localhost:3000/static_resources/api/v1/whatsapp_datas/save', body)
-    .then(response => {
+    .try(response => {
       console.log('Datos guardados exitosamente en Rails:', response.data);
       //res.status(200).send(response.data);
     })
