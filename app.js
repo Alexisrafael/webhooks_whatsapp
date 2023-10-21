@@ -30,7 +30,7 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", (req, res) => {
+app.post("/webhook", async (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
 
@@ -38,9 +38,9 @@ app.post("/webhook", (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
-  let url_handalbay = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/save"
+  let url_handalbay = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/save";
   debugger
-  axios.post(url_handalbay, body)
+  /*axios.post(url_handalbay, body)
     .then(response => {
       debugger
       console.log('Datos guardados exitosamente en Rails:', response.data);
@@ -49,7 +49,18 @@ app.post("/webhook", (req, res) => {
     .catch(error => {
       console.error('Error al guardar datos en Rails:', error);
       //res.sendStatus(500); // o cualquier otro código de error adecuado
-    });
+    });*/
+  await axios({
+        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+        url: url_handalbay,
+        data: {
+          messaging_product: "whatsapp",
+          to: '',
+          text: { body: "Gracias por tu mensaje pero la respuesta es limitada" },
+        },
+        headers: { "Content-Type": "application/json" },
+      })
+      
     
   
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
