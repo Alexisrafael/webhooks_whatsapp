@@ -22,24 +22,30 @@ const request = require("request"),
   
 
 
+
+// Configurar cabeceras CORS
+express().use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Permite solicitudes desde cualquier origen
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 // Sets server port and logs message on success
-app.use(cors());
-app.use(body_parser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(body_parser.json({ limit: '50mb' }));
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 
 // Accepts POST requests at /webhook endpoint
-app.post("/webhook", async (req, res) => {
+app.post("/webhook", (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
 
   // Check the Incoming webhook message
-  console.log(JSON.stringify(req.body, null, 2));
+  //console.log(JSON.stringify(req.body, null, 2));
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   let url_handalbay = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/save";
-  debugger
   /*axios.post(url_handalbay, body)
     .then(response => {
       debugger
@@ -50,22 +56,22 @@ app.post("/webhook", async (req, res) => {
       console.error('Error al guardar datos en Rails:', error);
       //res.sendStatus(500); // o cualquier otro código de error adecuado
     });*/
-  await axios({
-        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
-        url: url_handalbay,
-        data: {
-          messaging_product: "whatsapp",
-          to: '',
-          text: { body: "Gracias por tu mensaje pero la respuesta es limitada" },
-        },
-        headers: { "Content-Type": "application/json" },
-      })
-      .then(response => {
-      console.log('Datos guardados exitosamente en Rails:', response.data);
+  axios({
+    method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+    url: url_handalbay,
+    data: {
+      messaging_product: "whatsapp",
+      to: "",
+      text: { body: "Gracias por tu mensaje pero la respuesta es limitada" },
+    },
+    headers: { Accept: "*/*" },
+  })
+    .then((response) => {
+      console.log("Datos guardados exitosamente en Rails:", response.data);
       //res.status(200).send(response.data);
     })
-    .catch(error => {
-      console.error('Error al guardar datos en Rails:', error);
+    .catch((error) => {
+      console.error("Error al guardar datos en Rails:", error);
       //res.sendStatus(500); // o cualquier otro código de error adecuado
     });
     
