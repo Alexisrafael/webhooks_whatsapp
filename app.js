@@ -46,17 +46,16 @@ app.post("/webhook", (req, res) => {
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   let url_handalbay = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/save";
-  /*axios.post(url_handalbay, body)
+  axios.post(url_handalbay, body)
     .then(response => {
-      debugger
       console.log('Datos guardados exitosamente en Rails:', response.data);
       //res.status(200).send(response.data);
     })
     .catch(error => {
       console.error('Error al guardar datos en Rails:', error);
       //res.sendStatus(500); // o cualquier otro código de error adecuado
-    });*/
-  axios({
+    });
+  /*axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url: url_handalbay,
     data: body,
@@ -68,7 +67,7 @@ app.post("/webhook", (req, res) => {
     .catch((error) => {
       console.error("Error al guardar datos en Rails:", error);
       //res.sendStatus(500); // o cualquier otro código de error adecuado
-    });
+    });*/
     
   
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
