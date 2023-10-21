@@ -24,16 +24,12 @@ const request = require("request"),
 
 
 // Configurar cabeceras CORS
-express().use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Permite solicitudes desde cualquier origen
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+express().use(cors({
+  origin: 'http://localhost:3000',
+  methods: 'POST',  // Opcional: Puedes configurar los métodos HTTP permitidos
+}))
 // Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
+app.listen(process.env.PORT || 1337, () => console.log("webhook is listening" + " " + process.env.PORT));
 
 
 // Accepts POST requests at /webhook endpoint
