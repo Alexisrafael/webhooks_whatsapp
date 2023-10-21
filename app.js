@@ -18,11 +18,14 @@ const request = require("request"),
   body_parser = require("body-parser"),
   axios = require("axios").default,
   app = express().use(body_parser.json()), // creates express http server
-  cors = require('cors'),
-  corss = express().use(cors());
+  cors = require('cors');
+  
 
 
 // Sets server port and logs message on success
+app.use(cors());
+app.use(body_parser.urlencoded({ extended: true, limit: '50mb' }));
+app.use(body_parser.json({ limit: '50mb' }));
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 
