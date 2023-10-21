@@ -39,8 +39,10 @@ app.post("/webhook", (req, res) => {
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   let url_handalbay = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/save"
+  debugger
   axios.post(url_handalbay, body)
     .then(response => {
+      debugger
       console.log('Datos guardados exitosamente en Rails:', response.data);
       //res.status(200).send(response.data);
     })
