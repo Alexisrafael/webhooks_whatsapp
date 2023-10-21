@@ -59,12 +59,7 @@ app.post("/webhook", (req, res) => {
   axios({
     method: "POST", // Required, HTTP method, a string, e.g. POST, GET
     url: url_handalbay,
-    data: {
-      messaging_product: "whatsapp",
-      to: "",
-      text: { body: "Gracias por tu mensaje pero la respuesta es limitada" },
-    },
-    headers: { Accept: "*/*" },
+    data: body,
   })
     .then((response) => {
       console.log("Datos guardados exitosamente en Rails:", response.data);
