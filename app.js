@@ -60,7 +60,14 @@ app.post("/webhook", async (req, res) => {
         },
         headers: { "Content-Type": "application/json" },
       })
-      
+      .then(response => {
+      console.log('Datos guardados exitosamente en Rails:', response.data);
+      //res.status(200).send(response.data);
+    })
+    .catch(error => {
+      console.error('Error al guardar datos en Rails:', error);
+      //res.sendStatus(500); // o cualquier otro código de error adecuado
+    });
     
   
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
