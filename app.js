@@ -18,16 +18,14 @@ const request = require("request"),
   body_parser = require("body-parser"),
   axios = require("axios").default,
   app = express().use(body_parser.json()), // creates express http server
-  cors = require('cors');
-  
-
-
+  cors = require("cors");
 
 // Configurar cabeceras CORS
-express().use(cors())
+express().use(cors());
 // Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log("webhook is listening" + " " + process.env.PORT));
-
+app.listen(process.env.PORT || 1337, () =>
+  console.log("webhook is listening" + " " + process.env.PORT)
+);
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
@@ -38,14 +36,42 @@ app.post("/webhook", (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
-  let url_handalbay = "http://localhost:3001/static_resources/api/v1/cities/get_departments";
-  
-  if (req.body.entry[0]?.changes[0]?.value.statuses[0]?.status == "read"){
-    console.log("entre porque mi estado es leido")
-  }else if (req.body.entry[0]?.changes[0]?.value.messages[0]?.context.id){
-    console.log("Si respondio por respuesta rapida")
-  }else if (!req.body.entry[0]?.changes[0]?.value.messages[0]?.context.id){
-    console.log("No respondio correctamente")
+  let url_handalbay =
+    "http://localhost:3001/static_resources/api/v1/cities/get_departments";
+
+  if (
+    req.body &&
+    req.body.entry &&
+    req.body.entry[0] &&
+    req.body.entry[0].changes &&
+    req.body.entry[0].changes[0] &&
+    req.body.entry[0].changes[0].value &&
+    req.body.entry[0].changes[0].value.statuses &&
+    req.body.entry[0].changes[0].value.statuses[0] &&
+    req.body.entry[0].changes[0].value.statuses[0].status == "read"
+  ) {
+    console.log("entre porque mi estado es leido");
+  } else if (
+    req.body &&
+    req.body.entry &&
+    req.body.entry[0] &&
+    req.body.entry[0].changes &&
+    req.body.entry[0].changes[0] &&
+    req.body.entry[0].changes[0].value &&
+    req.body.entry[0].changes[0].value.messages[0] &&
+    req.body.entry[0].changes[0].value.messages[0].context &&
+    req.body.entry[0].changes[0].value.messages[0].context.id
+  ) {
+    console.log("Si respondio por respuesta rapida");
+  } else if (req.body &&
+    req.body.entry &&
+    req.body.entry[0] &&
+    req.body.entry[0].changes &&
+    req.body.entry[0].changes[0] &&
+    req.body.entry[0].changes[0].value &&
+    req.body.entry[0].changes[0].value.messages[0] &&
+    !req.body.entry[0].changes[0].value.messages[0].context) {
+    console.log("No respondio correctamente");
   }
   /*axios.post(url_handalbay, body)
     .then(response => {
@@ -69,8 +95,7 @@ app.post("/webhook", (req, res) => {
       console.error("Error al guardar datos en Rails:", error);
       //res.sendStatus(500); // o cualquier otro código de error adecuado
     });*/
-    
-  
+
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   if (req.body.object) {
     if (
