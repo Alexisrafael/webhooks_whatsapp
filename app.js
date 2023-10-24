@@ -61,6 +61,16 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.statuses[0] &&
     req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false;
   
+  // verifica que no exista ningun estatus 
+  let null_status = req.body &&
+    req.body.entry &&
+    req.body.entry[0] &&
+    req.body.entry[0].changes &&
+    req.body.entry[0].changes[0] &&
+    req.body.entry[0].changes[0].value &&
+    req.body.entry[0].changes[0].value.statuses &&
+    req.body.entry[0].changes[0].value.statuses[0] &&
+    req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false;
   //verifica si el mjs fue una repuesta rapida de una plantilla
   let rapida = req.body &&
     req.body.entry &&
@@ -84,7 +94,7 @@ app.post("/webhook", (req, res) => {
     let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
     let from = req.body.entry[0].changes[0].value.messages[0].from;
     let token = process.env.WHATSAPP_TOKEN
-    /*axios({
+    axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
         url:
           "https://graph.facebook.com/v17.0/" +
@@ -93,14 +103,17 @@ app.post("/webhook", (req, res) => {
           token,
         data: {
           messaging_product: "whatsapp",
+          recipient_type: "individual",
+          preview_url: false,
           to: from,
+          type: "text",
           text: { 
             body: "Gracias por tu mensaje pero la respuesta es limitada, debes reponder con algunas de las opcines antes dichas."
           },
         },
         headers: { "Content-Type": "application/json" },
       })
-    res.status(200)*/
+    res.status(200)
   }else{
     res.status(404)
   }
