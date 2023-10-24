@@ -61,8 +61,8 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.statuses[0] &&
     req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false;
   
-  // verifica que no exista ningun estatus 
-  let null_status = req.body &&
+  //Verifica si el cambio de estados es de un mjs de plantilla
+  let template_true = req.body &&
     req.body.entry &&
     req.body.entry[0] &&
     req.body.entry[0].changes &&
@@ -70,7 +70,17 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value &&
     req.body.entry[0].changes[0].value.statuses &&
     req.body.entry[0].changes[0].value.statuses[0] &&
-    req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false;
+    req.body.entry[0].changes[0].value.statuses[0].pricing ? true : false;
+  
+  // verifica que no exista ningun estatus 
+  let null_status = req.body &&
+    req.body.entry &&
+    req.body.entry[0] &&
+    req.body.entry[0].changes &&
+    req.body.entry[0].changes[0] &&
+    req.body.entry[0].changes[0].value &&
+    !req.body.entry[0].changes[0].value.statuses ? true : false;
+  
   //verifica si el mjs fue una repuesta rapida de una plantilla
   let rapida = req.body &&
     req.body.entry &&
@@ -89,7 +99,7 @@ app.post("/webhook", (req, res) => {
   }else if (rapida) {
     console.log("Si respondio por respuesta rapida");
     res.status(200)
-  }else if (error_mjs) {
+  }else if (error_mjs && null_status) {
     console.log("No respondio correctamente");
     let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
     let from = req.body.entry[0].changes[0].value.messages[0].from;
