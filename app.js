@@ -39,12 +39,13 @@ app.post("/webhook", (req, res) => {
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   let url_handalbay = "http://localhost:3001/static_resources/api/v1/cities/get_departments";
-  if (req.body.entry[0].changes[0].value.statuses[0].status == "read"){
+  
+  if (req.body.entry[0]?.changes[0]?.value.statuses[0]?.status == "read"){
     console.log("entre porque mi estado es leido")
-  }else if (req.body.entry[0].changes[0].value.messages[0].context.id){
+  }else if (req.body.entry[0]?.changes[0]?.value.messages[0]?.context.id){
     console.log("Si respondio por respuesta rapida")
-  }else if(){
-    
+  }else if (!req.body.entry[0]?.changes[0]?.value.messages[0]?.context.id){
+    console.log("No respondio correctamente")
   }
   /*axios.post(url_handalbay, body)
     .then(response => {
