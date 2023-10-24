@@ -51,7 +51,21 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.statuses[0].status == "read"
   ) {
     console.log("entre porque mi estado es leido");
-  } else if (
+    res.status(200).send("Mensaje enviado")
+  }else{
+    res.status(404).send("no se pudo enviar")
+  }
+  
+  let rapida = req.body &&
+    req.body.entry &&
+    req.body.entry[0] &&
+    req.body.entry[0].changes &&
+    req.body.entry[0].changes[0] &&
+    req.body.entry[0].changes[0].value &&
+    req.body.entry[0].changes[0].value.messages[0] &&
+    req.body.entry[0].changes[0].value.messages[0].context &&
+    req.body.entry[0].changes[0].value.messages[0].context.id ? true : 
+  if (
     req.body &&
     req.body.entry &&
     req.body.entry[0] &&
@@ -63,7 +77,12 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.messages[0].context.id
   ) {
     console.log("Si respondio por respuesta rapida");
-  } else if (req.body &&
+    res.status(200).send("Mensaje enviado")
+  }else{
+    res.status(404)
+  }
+  
+  if (req.body &&
     req.body.entry &&
     req.body.entry[0] &&
     req.body.entry[0].changes &&
@@ -85,11 +104,13 @@ app.post("/webhook", (req, res) => {
         data: {
           messaging_product: "whatsapp",
           to: from,
-          text: { body: "Gracias por tu mensaje pero la respuesta es limitada, debes reponder con algunas de las opcines antes dichas." },
+          text: { 
+            body: "Gracias por tu mensaje pero la respuesta es limitada, debes reponder con algunas de las opcines antes dichas."
+          },
         },
         headers: { "Content-Type": "application/json" },
       })
-    res.status(200)
+    res.status(200).send("Mensaje enviado")
   }else{
     res.status(404)
   }
