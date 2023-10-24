@@ -38,7 +38,19 @@ app.post("/webhook", (req, res) => {
   //console.log(req.body)
   let url_handalbay =
     "http://localhost:3001/static_resources/api/v1/cities/get_departments";
-
+  
+  //verifica si el mjs fue una repuesta diferente a las opciones de una plantilla
+  let error_mjs = req.body &&
+    req.body.entry &&
+    req.body.entry[0] &&
+    req.body.entry[0].changes &&
+    req.body.entry[0].changes[0] &&
+    req.body.entry[0].changes[0].value &&
+    req.body.entry[0].changes[0].value.messages &&
+    req.body.entry[0].changes[0].value.messages[0] &&
+    !req.body.entry[0].changes[0].value.messages[0].context ? true : false;
+  
+  //verifica si el mjs de plantilla que enviamos ya fue leido
   let status = req.body &&
     req.body.entry &&
     req.body.entry[0] &&
@@ -47,14 +59,9 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value &&
     req.body.entry[0].changes[0].value.statuses &&
     req.body.entry[0].changes[0].value.statuses[0] &&
-    req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false
-  if (status) {
-    console.log("entre porque mi estado es leido");
-    res.status(200)
-  }else{
-    res.status(404)
-  }
+    req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false;
   
+  //verifica si el mjs fue una repuesta rapida de una plantilla
   let rapida = req.body &&
     req.body.entry &&
     req.body.entry[0] &&
@@ -64,24 +71,15 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.messages &&
     req.body.entry[0].changes[0].value.messages[0] && 
     req.body.entry[0].changes[0].value.messages[0].context &&
-    req.body.entry[0].changes[0].value.messages[0].context.id ? true : false
-  if (rapida) {
+    req.body.entry[0].changes[0].value.messages[0].context.id ? true : false;
+  
+  if (status) {
+    console.log("entre porque mi estado es leido");
+    res.status(200)
+  }else if (rapida) {
     console.log("Si respondio por respuesta rapida");
     res.status(200)
-  }else{
-    res.status(404)
-  }
-  
-  let error_mjs = req.body &&
-    req.body.entry &&
-    req.body.entry[0] &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value &&
-    req.body.entry[0].changes[0].value.messages &&
-    req.body.entry[0].changes[0].value.messages[0] &&
-    !req.body.entry[0].changes[0].value.messages[0].context ? true : false
-  if (error_mjs) {
+  }else if (error_mjs) {
     console.log("No respondio correctamente");
     let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
     let from = req.body.entry[0].changes[0].value.messages[0].from;
