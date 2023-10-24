@@ -39,6 +39,9 @@ app.post("/webhook", (req, res) => {
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   let url_handalbay = "http://localhost:3001/static_resources/api/v1/cities/get_departments";
+  if (req.body.entry[0].changes[0].statuses[0].){
+    
+  }
   /*axios.post(url_handalbay, body)
     .then(response => {
       console.log('Datos guardados exitosamente en Rails:', response.data);
