@@ -72,6 +72,23 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.messages[0] &&
     !req.body.entry[0].changes[0].value.messages[0].context) {
     console.log("No respondio correctamente");
+    let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
+    let from = req.body.entry[0].changes[0].value.messages[0].from;
+    let token = process.env.WHATSAPP_TOKEN
+    axios({
+        method: "POST", // Required, HTTP method, a string, e.g. POST, GET
+        url:
+          "https://graph.facebook.com/v17.0/" +
+          phone_number_id +
+          "/messages?access_token=" +
+          token,
+        data: {
+          messaging_product: "whatsapp",
+          to: from,
+          text: { body: "Gracias por tu mensaje pero la respuesta es limitada" },
+        },
+        headers: { "Content-Type": "application/json" },
+      })
   }
   /*axios.post(url_handalbay, body)
     .then(response => {
@@ -97,7 +114,7 @@ app.post("/webhook", (req, res) => {
     });*/
 
   // info on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
-  if (req.body.object) {
+  /*if (req.body.object) {
     if (
       req.body.entry &&
       req.body.entry[0].changes &&
@@ -122,13 +139,13 @@ app.post("/webhook", (req, res) => {
           text: { body: "Gracias por tu mensaje pero la respuesta es limitada" },
         },
         headers: { "Content-Type": "application/json" },
-      });*/
+      });
     }
     res.sendStatus(200);
   } else {
     // Return a '404 Not Found' if event is not from a WhatsApp API
     res.sendStatus(404);
-  }
+  }*/
 });
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
