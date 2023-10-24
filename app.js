@@ -70,7 +70,7 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0] &&
     req.body.entry[0].changes[0].value &&
     req.body.entry[0].changes[0].value.messages[0] &&
-    !req.body.entry[0].changes[0].value.messages[0].context) {
+    !req.body.entry[0].changes[0].value.messages[0].context ) {
     console.log("No respondio correctamente");
     let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
     let from = req.body.entry[0].changes[0].value.messages[0].from;
@@ -85,10 +85,13 @@ app.post("/webhook", (req, res) => {
         data: {
           messaging_product: "whatsapp",
           to: from,
-          text: { body: "Gracias por tu mensaje pero la respuesta es limitada" },
+          text: { body: "Gracias por tu mensaje pero la respuesta es limitada, debes reponder con algunas de las opcines antes dichas." },
         },
         headers: { "Content-Type": "application/json" },
       })
+    res.status(200)
+  }else{
+    res.status(404)
   }
   /*axios.post(url_handalbay, body)
     .then(response => {
