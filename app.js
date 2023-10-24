@@ -39,8 +39,7 @@ app.post("/webhook", (req, res) => {
   let url_handalbay =
     "http://localhost:3001/static_resources/api/v1/cities/get_departments";
 
-  if (
-    req.body &&
+  let status = req.body &&
     req.body.entry &&
     req.body.entry[0] &&
     req.body.entry[0].changes &&
@@ -48,12 +47,12 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value &&
     req.body.entry[0].changes[0].value.statuses &&
     req.body.entry[0].changes[0].value.statuses[0] &&
-    req.body.entry[0].changes[0].value.statuses[0].status == "read"
-  ) {
+    req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false
+  if (status) {
     console.log("entre porque mi estado es leido");
-    res.status(200).send("Mensaje enviado")
+    res.status(200)
   }else{
-    res.status(404).send("no se pudo enviar")
+    res.status(404)
   }
   
   let rapida = req.body &&
@@ -62,34 +61,27 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes &&
     req.body.entry[0].changes[0] &&
     req.body.entry[0].changes[0].value &&
-    req.body.entry[0].changes[0].value.messages[0] &&
+    req.body.entry[0].changes[0].value.messages &&
+    req.body.entry[0].changes[0].value.messages[0] && 
     req.body.entry[0].changes[0].value.messages[0].context &&
-    req.body.entry[0].changes[0].value.messages[0].context.id ? true : 
-  if (
-    req.body &&
-    req.body.entry &&
-    req.body.entry[0] &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value &&
-    req.body.entry[0].changes[0].value.messages[0] &&
-    req.body.entry[0].changes[0].value.messages[0].context &&
-    req.body.entry[0].changes[0].value.messages[0].context.id
-  ) {
+    req.body.entry[0].changes[0].value.messages[0].context.id ? true : false
+  if (rapida) {
     console.log("Si respondio por respuesta rapida");
-    res.status(200).send("Mensaje enviado")
+    res.status(200)
   }else{
     res.status(404)
   }
   
-  if (req.body &&
+  let error_mjs = req.body &&
     req.body.entry &&
     req.body.entry[0] &&
     req.body.entry[0].changes &&
     req.body.entry[0].changes[0] &&
     req.body.entry[0].changes[0].value &&
+    req.body.entry[0].changes[0].value.messages &&
     req.body.entry[0].changes[0].value.messages[0] &&
-    !req.body.entry[0].changes[0].value.messages[0].context ) {
+    !req.body.entry[0].changes[0].value.messages[0].context ? true : false
+  if (error_mjs) {
     console.log("No respondio correctamente");
     let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
     let from = req.body.entry[0].changes[0].value.messages[0].from;
@@ -110,7 +102,7 @@ app.post("/webhook", (req, res) => {
         },
         headers: { "Content-Type": "application/json" },
       })
-    res.status(200).send("Mensaje enviado")
+    res.status(200)
   }else{
     res.status(404)
   }
