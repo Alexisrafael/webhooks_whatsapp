@@ -104,7 +104,7 @@ app.post("/webhook", (req, res) => {
     let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
     let from = req.body.entry[0].changes[0].value.messages[0].from;
     let token = process.env.WHATSAPP_TOKEN
-    axios({
+    /*axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
         url:
           "https://graph.facebook.com/v17.0/" +
@@ -122,7 +122,7 @@ app.post("/webhook", (req, res) => {
           },
         },
         headers: { "Content-Type": "application/json" },
-      })
+      })*/
     res.status(200)
   }else{
     res.status(404)
@@ -187,7 +187,7 @@ app.post("/webhook", (req, res) => {
 
 // Accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests
-/*app.get("/webhook", (req, res) => {
+app.get("/webhook", (req, res) => {
   
    //* UPDATE YOUR VERIFY TOKEN
    //*This will be the Verify Token value when you set up webhook
@@ -211,4 +211,4 @@ app.post("/webhook", (req, res) => {
       res.sendStatus(403);
     }
   }
-});*/
+});
