@@ -36,8 +36,7 @@ app.post("/webhook", (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
-  let url_handalbay =
-    "http://localhost:3001/static_resources/api/v1/cities/get_departments";
+  let url_handalbay = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
   
   //verifica si el mjs fue una repuesta diferente a las opciones de una plantilla
   let error_mjs = req.body &&
