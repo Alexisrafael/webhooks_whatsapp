@@ -36,7 +36,8 @@ app.post("/webhook", (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
-  let url_handalbay = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
+  let url_handalbay_update_confirmation_participation = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
+  let url_handelbay_update_message_status = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
   
   //verifica si el mjs fue una repuesta diferente a las opciones de una plantilla
   let error_mjs = req.body &&
@@ -94,6 +95,15 @@ app.post("/webhook", (req, res) => {
   
   if (status) {
     console.log("entre porque mi estado es leido");
+    axios.post(url_handalbay, body)
+    .then(response => {
+      console.log('Datos guardados exitosamente en Rails:', response.data);
+      //res.status(200).send(response.data);
+    })
+    .catch(error => {
+      console.error('Error al guardar datos en Rails:', error);
+      //res.sendStatus(500); // o cualquier otro código de error adecuado
+    });
     res.status(200)
   }else if (rapida) {
     console.log("Si respondio por respuesta rapida");
