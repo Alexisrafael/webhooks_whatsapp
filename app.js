@@ -95,18 +95,25 @@ app.post("/webhook", (req, res) => {
   
   if (status) {
     console.log("entre porque mi estado es leido");
-    axios.post(url_handalbay, body)
+    axios.post(url_handelbay_update_message_status, body)
     .then(response => {
-      console.log('Datos guardados exitosamente en Rails:', response.data);
-      //res.status(200).send(response.data);
+      console.log('Se actualizo el status del mjs:', response.data);
+      res.status(200).send(response.data);
     })
     .catch(error => {
-      console.error('Error al guardar datos en Rails:', error);
-      //res.sendStatus(500); // o cualquier otro código de error adecuado
+      console.error('Error al actualizar el status del mjs:', error);
+      res.sendStatus(400); // o cualquier otro código de error adecuado
     });
-    res.status(200)
+    //res.status(200)
   }else if (rapida) {
     console.log("Si respondio por respuesta rapida");
+    axios.post(url_handalbay_update_confirmation_participation, body)
+    .then(response => {
+      res.status(200).send(response.data);
+    })
+    .catch(error => {
+      res.sendStatus(500); // o cualquier otro código de error adecuado
+    });
     res.status(200)
   }else if (error_mjs && null_status) {
     console.log("No respondio correctamente");
