@@ -95,7 +95,7 @@ app.post("/webhook", (req, res) => {
   
   if (status) {
     console.log("entre porque mi estado es leido");
-    axios.post(url_handelbay_update_message_status, body)
+    axios.put(url_handelbay_update_message_status, body)
     .then(response => {
       console.log('Se actualizo el status del mjs:', response.data);
       res.status(200).send(response.data);
@@ -107,7 +107,7 @@ app.post("/webhook", (req, res) => {
     //res.status(200)
   }else if (rapida) {
     console.log("Si respondio por respuesta rapida");
-    axios.post(url_handalbay_update_confirmation_participation, body)
+    axios.put(url_handalbay_update_confirmation_participation, body)
     .then(response => {
       res.status(200).send(response.data);
     })
