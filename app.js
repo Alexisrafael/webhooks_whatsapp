@@ -39,10 +39,10 @@ app.post("/webhook", (req, res) => {
   
   //let url_handalbay_update_confirmation_participation = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
   //let url_handelbay_update_message_status = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
-  //let url_handalbay_update_confirmation_participation = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
-  //let url_handelbay_update_message_status = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
-  let url_handalbay_update_confirmation_participation = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
-  let url_handelbay_update_message_status = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_message_status";
+  let url_handalbay_update_confirmation_participation = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
+  let url_handelbay_update_message_status = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
+  //let url_handalbay_update_confirmation_participation = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
+  //let url_handelbay_update_message_status = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_message_status";
   
   //verifica si el mjs fue una repuesta diferente a las opciones de una plantilla
   let error_mjs = req.body &&
