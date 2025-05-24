@@ -39,8 +39,10 @@ app.post("/webhook", (req, res) => {
   
   let url_handalbay_update_confirmation_participation = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
   let url_handelbay_update_message_status = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
+  let url_handalbay_update_form_eval = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_form_eval_whatsapp";
   //let url_handalbay_update_confirmation_participation = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
   //let url_handelbay_update_message_status = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
+  //  let url_handalbay_update_form_eval = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_form_eval_whatsapp";
   //let url_handalbay_update_confirmation_participation = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
   //let url_handelbay_update_message_status = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_message_status";
   
@@ -105,7 +107,8 @@ app.post("/webhook", (req, res) => {
       req.body.entry[0].changes[0].value.messages[0] &&
       req.body.entry[0].changes[0].value.messages[0].interactive &&
       req.body.entry[0].changes[0].value.messages[0].interactive.type === "interactive" &&
-      
+      req.body.entry[0].changes[0].value.messages[0].interactive.nfm_reply &&
+      req.body.entry[0].changes[0].value.messages[0].interactive.nfm_reply.name === "flow"
   
   if (status) {
     console.log("entre porque mi estado es leido");
@@ -128,7 +131,6 @@ app.post("/webhook", (req, res) => {
     .catch(error => {
       res.sendStatus(500); // o cualquier otro código de error adecuado
     });
-    res.status(200)
   }else if (error_mjs && null_status) {
     console.log("No respondio correctamente");
     let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
@@ -154,6 +156,16 @@ app.post("/webhook", (req, res) => {
         headers: { "Content-Type": "application/json" },
       })*/
     res.status(200)
+  } else if(formEval){
+    console.log("Se envio el formulario correctamente");
+    axios.put(url_handalbay_update_form_eval, body)
+    .then(response => {
+      res.status(200).send(response.data);
+    })
+    .catch(error => {
+      res.sendStatus(500); // o cualquier otro código de error adecuado
+    });
+    
   }else{
     res.status(404)
   }
