@@ -98,6 +98,15 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.messages[0].context &&
     req.body.entry[0].changes[0].value.messages[0].context.id ? true : false;
   
+  let formEval = req.body &&
+      req.body.entry[0] &&
+      req.body.entry[0].changes[0] &&
+      req.body.entry[0].changes[0].value &&
+      req.body.entry[0].changes[0].value.messages[0] &&
+      req.body.entry[0].changes[0].value.messages[0].interactive &&
+      req.body.entry[0].changes[0].value.messages[0].interactive.type === "interactive" &&
+      
+  
   if (status) {
     console.log("entre porque mi estado es leido");
     axios.put(url_handelbay_update_message_status, body)
