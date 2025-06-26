@@ -37,12 +37,12 @@ app.post("/webhook", (req, res) => {
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   
-  let url_handalbay_update_confirmation_participation = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
-  let url_handelbay_update_message_status = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
-  let url_handalbay_update_form_eval = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_form_eval_whatsapp";
-  //let url_handalbay_update_confirmation_participation = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
-  //let url_handelbay_update_message_status = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
-  //  let url_handalbay_update_form_eval = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_form_eval_whatsapp";
+  //let url_handalbay_update_confirmation_participation = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
+  //let url_handelbay_update_message_status = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
+  //let url_handalbay_update_form_eval = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_form_eval_whatsapp";
+  let url_handalbay_update_confirmation_participation = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
+  let url_handelbay_update_message_status = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
+  let url_handalbay_update_form_eval = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_form_eval_whatsapp";
   //let url_handalbay_update_confirmation_participation = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
   //let url_handelbay_update_message_status = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_message_status";
   
