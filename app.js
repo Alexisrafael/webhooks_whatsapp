@@ -26,7 +26,7 @@ app.post("/webhook", (req, res) => {
   let body = req.body;
 
   // Check the Incoming webhook message
-  console.log(JSON.stringify(req.body, null, 2));
+  //console.log(JSON.stringify(req.body, null, 2));
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   
@@ -45,6 +45,7 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.messages[0] &&
     !req.body.entry[0].changes[0].value.messages[0].context ? true : false;
   
+  console.log("error_mjs", error_mjs);
   //verifica si el mjs de plantilla que enviamos ya fue leido
   let status = req.body &&
     req.body.entry &&
@@ -55,6 +56,8 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.statuses &&
     req.body.entry[0].changes[0].value.statuses[0] &&
     req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false;
+
+  console.log("status", status);
   
   //Verifica si el cambio de estados es de un mjs de plantilla
   let template_true = req.body &&
@@ -66,6 +69,8 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.statuses &&
     req.body.entry[0].changes[0].value.statuses[0] &&
     req.body.entry[0].changes[0].value.statuses[0].pricing ? true : false;
+
+  console.log("template_true", template_true);
   
   // verifica que no exista ningun estatus 
   let null_status = req.body &&
@@ -75,6 +80,8 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0] &&
     req.body.entry[0].changes[0].value &&
     !req.body.entry[0].changes[0].value.statuses ? true : false;
+
+  console.log("null_status", null_status);
   
   //verifica si el mjs fue una repuesta rapida de una plantilla
   let rapida = req.body &&
@@ -88,6 +95,8 @@ app.post("/webhook", (req, res) => {
     req.body.entry[0].changes[0].value.messages[0].context &&
     req.body.entry[0].changes[0].value.messages[0].context.id ? true : false;
   
+  console.log("rapida", rapida);
+  
   let formEval = req.body &&
       req.body.entry[0] &&
       req.body.entry[0].changes[0] &&
@@ -97,6 +106,8 @@ app.post("/webhook", (req, res) => {
       req.body.entry[0].changes[0].value.messages[0].interactive.type === "interactive" &&
       req.body.entry[0].changes[0].value.messages[0].interactive.nfm_reply &&
       req.body.entry[0].changes[0].value.messages[0].interactive.nfm_reply.name === "flow"
+  
+  console.log("formEval", formEval);
   
   if (status) {
     console.log("entre porque mi estado es leido");
