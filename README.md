@@ -1,19 +1,17 @@
-# WhatsApp Platform Quick Start
+# Plataforma de WhatsApp
 
-Welcome to your first step toward building awesome WhatsApp apps!
+Este proyecto contiene el código para un webhook simple que puedes usar para comenzar a trabajar con la Plataforma de WhatsApp.
 
-This project contains the code for a simple webhook you can use to get started using the WhatsApp Platform.
+El código aquí refleja lo que se encuentra en nuestra [guía de configuración del webhook](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks), y puede usarse como punto de partida para seguir la [guía "Comienza con la API de WhatsApp Business Cloud"](https://developers.facebook.com/docs/whatsapp/getting-started/signing-up/).
 
-The code here mirrors what is in our [webhook set up guide](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks), and may be used as the starting point for doing the ["Get Started With the WhatsApp Business Cloud API guide"](https://developers.facebook.com/docs/whatsapp/getting-started/signing-up/).
+## Recursos Adicionales
 
-## Additional Resources
+¿Te interesa aprender más sobre la Plataforma de WhatsApp?
 
-Interested in learning more about the WhatsApp Platform?
+Consulta estos recursos:
 
-Check out these resources:
+- [**Guía de configuración del webhook**](https://developers.facebook.com/docs/whatsapp/getting-started/signing-up/#configure-webhooks): Una guía paso a paso para el código de este proyecto.
 
-- [**Webhook set up guide**](https://developers.facebook.com/docs/whatsapp/getting-started/signing-up/#configure-webhooks): The walkthrough for the code in this project.
+- [**Tutorial de inicio rápido**](https://developers.facebook.com/docs/whatsapp/getting-started/signing-up/): Crea tu primera aplicación usando este proyecto y siguiendo nuestro tutorial de inicio rápido.
 
-- [**Quick start tutorial**](https://developers.facebook.com/docs/whatsapp/getting-started/signing-up/): Build your first app by remixing this project and following our quick start tutorial.
-
-- [**WhatsApp Business Platform Documentation**](https://developers.facebook.com/docs/whatsapp/)
+- [**Documentación de la Plataforma de WhatsApp Business**](https://developers.facebook.com/docs/whatsapp/)

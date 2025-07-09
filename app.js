@@ -1,30 +1,23 @@
-/*
- * Starter Project for WhatsApp Echo Bot Tutorial
- *
- * Remix this as the starting point for following the WhatsApp Echo Bot tutorial
- *
- */
-
 "use strict";
-
-// Access token for your app
-// (copy token from DevX getting started page
-// and save it as environment variable into the .env file)
-const token = process.env.WHATSAPP_TOKEN;
+require('dotenv').config();
 
 // Imports dependencies and set up http server
-const request = require("request"),
-  express = require("express"),
-  body_parser = require("body-parser"),
-  axios = require("axios").default,
-  app = express().use(body_parser.json()), // creates express http server
-  cors = require("cors");
+//const request = require("request");
+const express = require("express");
+const bodyParser = require("body-parser");
+const axios = require("axios").default;
+const app = express();
+const cors = require("cors");
+const port = process.env.PORT || 1337;
+const token = process.env.WHATSAPP_TOKEN;
 
 // Configurar cabeceras CORS
-express().use(cors());
+app.use(cors());
+app.use(bodyParser.json());
+
 // Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () =>
-  console.log("webhook is listening" + " " + process.env.PORT)
+app.listen(port, () =>
+  console.log("webhook is listening" + " " + port)
 );
 
 // Accepts POST requests at /webhook endpoint
@@ -37,14 +30,9 @@ app.post("/webhook", (req, res) => {
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   
-  let url_handalbay_update_confirmation_participation = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
-  let url_handelbay_update_message_status = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
-  let url_handalbay_update_form_eval = "https://testing.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_form_eval_whatsapp";
-  //let url_handalbay_update_confirmation_participation = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
-  //let url_handelbay_update_message_status = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_message_status";
-  //let url_handalbay_update_form_eval = "https://app.handelbay.com.co/static_resources/api/v1/whatsapp_datas/update_form_eval_whatsapp";
-  //let url_handalbay_update_confirmation_participation = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_confirmation_participation";
-  //let url_handelbay_update_message_status = "http://localhost:3000/static_resources/api/v1/whatsapp_datas/update_message_status";
+  let url_handalbay_update_confirmation_participation = process.env.CONFIRMATION_PARTICIPATION
+  let url_handelbay_update_message_status = process.env.MESSAGE_SATATUS
+  let url_handalbay_update_form_eval = process.env.FORM_EVAL
   
   //verifica si el mjs fue una repuesta diferente a las opciones de una plantilla
   let error_mjs = req.body &&

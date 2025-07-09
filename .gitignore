@@ -1,0 +1,9 @@
+/.config
+/.data
+/.env
+/.pnpm-store
+/.bash_history
+/.glitch-assets
+/.glitchdotcom.json
+/node_modules
+/package-lock.json
