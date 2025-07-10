@@ -35,77 +35,63 @@ app.post("/webhook", (req, res) => {
   let url_handalbay_update_form_eval = process.env.FORM_EVAL
   
   //verifica si el mjs fue una repuesta diferente a las opciones de una plantilla
-  let error_mjs = req.body &&
-    req.body.entry &&
-    req.body.entry[0] &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value &&
-    req.body.entry[0].changes[0].value.messages &&
-    req.body.entry[0].changes[0].value.messages[0] &&
-    !req.body.entry[0].changes[0].value.messages[0].context ? true : false;
+  let error_mjs = req?.body &&
+    req?.body?.entry && Array.isArray(req?.body?.entry) && req?.body?.entry.length > 0 &&
+    req?.body?.entry[0]?.changes && Array.isArray(req?.body?.entry[0]?.changes) && req?.body?.entry[0]?.changes.length > 0 &&
+    req?.body?.entry[0]?.changes[0]?.value &&
+    req?.body?.entry[0]?.changes[0]?.value?.messages && Array.isArray(req?.body?.entry[0]?.changes[0]?.value?.messages ) && req?.body?.entry[0]?.changes[0]?.value?.messages.length > 0 &&
+    !req?.body?.entry[0]?.changes[0]?.value?.messages[0]?.context ? true : false;
   
   console.log("error_mjs", error_mjs);
   //verifica si el mjs de plantilla que enviamos ya fue leido
-  let status = req.body &&
-    req.body.entry &&
-    req.body.entry[0] &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value &&
-    req.body.entry[0].changes[0].value.statuses &&
-    req.body.entry[0].changes[0].value.statuses[0] &&
-    req.body.entry[0].changes[0].value.statuses[0].status == "read" ? true : false;
+  let status = req?.body &&
+    req?.body?.entry && Array.isArray(req?.body?.entry) && req?.body?.entry.length > 0 &&
+    req?.body?.entry[0]?.changes && Array.isArray(req?.body?.entry[0]?.changes) && req?.body?.entry[0]?.changes.length > 0 &&
+    req?.body?.entry[0]?.changes[0]?.value &&
+    req?.body?.entry[0]?.changes[0]?.value?.statuses && Array.isArray(req?.body?.entry[0]?.changes[0]?.value?.statuses) && req?.body?.entry[0]?.changes[0]?.value?.statuses.length > 0 &&
+    req?.body?.entry[0]?.changes[0]?.value?.statuses[0]?.status == "read" ? true : false;
 
   console.log("status", status);
   
   //Verifica si el cambio de estados es de un mjs de plantilla
-  let template_true = req.body &&
-    req.body.entry &&
-    req.body.entry[0] &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value &&
-    req.body.entry[0].changes[0].value.statuses &&
-    req.body.entry[0].changes[0].value.statuses[0] &&
-    req.body.entry[0].changes[0].value.statuses[0].pricing ? true : false;
+  let template_true = req?.body &&
+    req?.body?.entry && Array.isArray(req?.body?.entry) && req?.body?.entry.length > 0 &&
+    req?.body?.entry[0]?.changes && Array.isArray(req?.body?.entry[0]?.changes) && req?.body?.entry[0]?.changes.length > 0 &&
+    req?.body?.entry[0]?.changes[0]?.value &&
+    req?.body?.entry[0]?.changes[0]?.value?.statuses && Array.isArray(req?.body?.entry[0]?.changes[0]?.value?.statuses) && req?.body?.entry[0]?.changes[0]?.value?.statuses.length > 0 &&
+    req?.body?.entry[0]?.changes[0]?.value?.statuses[0]?.pricing ? true : false;
 
   console.log("template_true", template_true);
   
   // verifica que no exista ningun estatus 
-  let null_status = req.body &&
-    req.body.entry &&
-    req.body.entry[0] &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value &&
-    !req.body.entry[0].changes[0].value.statuses ? true : false;
+  let null_status = req?.body &&
+    req?.body?.entry && Array.isArray(req?.body?.entry) && req?.body?.entry.length > 0 &&
+    req?.body?.entry[0]?.changes && Array.isArray(req?.body?.entry[0]?.changes) && req?.body?.entry[0]?.changes.length > 0 &&
+    req?.body?.entry[0]?.changes[0]?.value &&
+    !req?.body?.entry[0]?.changes[0]?.value?.statuses ? true : false;
 
   console.log("null_status", null_status);
   
   //verifica si el mjs fue una repuesta rapida de una plantilla
-  let rapida = req.body &&
-    req.body.entry &&
-    req.body.entry[0] &&
-    req.body.entry[0].changes &&
-    req.body.entry[0].changes[0] &&
-    req.body.entry[0].changes[0].value &&
-    req.body.entry[0].changes[0].value.messages &&
-    req.body.entry[0].changes[0].value.messages[0] && 
-    req.body.entry[0].changes[0].value.messages[0].context &&
-    req.body.entry[0].changes[0].value.messages[0].context.id ? true : false;
+  let rapida = req?.body &&
+    req?.body?.entry && Array.isArray(req?.body?.entry) && req?.body?.entry.length > 0 &&
+    req?.body?.entry[0]?.changes && Array.isArray(req?.body?.entry[0]?.changes) && req?.body?.entry[0]?.changes.length > 0 &&
+    req?.body?.entry[0]?.changes[0]?.value &&
+    req?.body?.entry[0]?.changes[0]?.value?.messages && Array.isArray(req?.body?.entry[0]?.changes[0]?.value?.messages ) && req?.body?.entry[0]?.changes[0]?.value?.messages.length > 0 &&
+    req?.body?.entry[0]?.changes[0]?.value?.messages[0]?.context &&
+    req?.body?.entry[0]?.changes[0]?.value?.messages[0]?.context?.id ? true : false;
   
   console.log("rapida", rapida);
   
-  let formEval = req.body &&
-      req.body.entry[0] &&
-      req.body.entry[0].changes[0] &&
-      req.body.entry[0].changes[0].value &&
-      req.body.entry[0].changes[0].value.messages[0] &&
-      req.body.entry[0].changes[0].value.messages[0].interactive &&
-      req.body.entry[0].changes[0].value.messages[0].interactive.type === "interactive" &&
-      req.body.entry[0].changes[0].value.messages[0].interactive.nfm_reply &&
-      req.body.entry[0].changes[0].value.messages[0].interactive.nfm_reply.name === "flow"
+  let formEval = req?.body &&
+      req?.body?.entry && Array.isArray(req?.body?.entry) && req?.body?.entry.length > 0 &&
+      req?.body?.entry[0]?.changes && Array.isArray(req?.body?.entry[0]?.changes) && req?.body?.entry[0]?.changes.length > 0 &&
+      req?.body?.entry[0]?.changes[0]?.value &&
+      req?.body?.entry[0]?.changes[0]?.value?.messages && Array.isArray(req?.body?.entry[0]?.changes[0]?.value?.messages ) && req?.body?.entry[0]?.changes[0]?.value?.messages.length > 0 &&
+      req?.body?.entry[0]?.changes[0]?.value?.messages[0]?.interactive &&
+      req?.body?.entry[0]?.changes[0]?.value?.messages[0]?.interactive?.type === "interactive" &&
+      req?.body?.entry[0]?.changes[0]?.value?.messages[0]?.interactive?.nfm_reply &&
+      req?.body?.entry[0]?.changes[0]?.value?.messages[0]?.interactive?.nfm_reply?.name === "flow"
   
   console.log("formEval", formEval);
   
@@ -132,8 +118,8 @@ app.post("/webhook", (req, res) => {
     });
   }else if (error_mjs && null_status) {
     console.log("No respondio correctamente");
-    let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
-    let from = req.body.entry[0].changes[0].value.messages[0].from;
+    let phone_number_id = req?.body?.entry[0]?.changes[0]?.value?.metadata?.phone_number_id;
+    let from = req?.body?.entry[0]?.changes[0]?.value?.messages[0]?.from;
     let token = process.env.WHATSAPP_TOKEN
     axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
