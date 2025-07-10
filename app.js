@@ -135,7 +135,7 @@ app.post("/webhook", (req, res) => {
     let phone_number_id = req.body.entry[0].changes[0].value.metadata.phone_number_id;
     let from = req.body.entry[0].changes[0].value.messages[0].from;
     let token = process.env.WHATSAPP_TOKEN
-    /*axios({
+    axios({
         method: "POST", // Required, HTTP method, a string, e.g. POST, GET
         url:
           "https://graph.facebook.com/v17.0/" +
@@ -153,8 +153,8 @@ app.post("/webhook", (req, res) => {
           },
         },
         headers: { "Content-Type": "application/json" },
-      })*/
-    res.status(200)
+      })
+    res.status(200).send('Evento no reconocido');
   } else if(formEval){
     console.log("Se envio el formulario correctamente");
     axios.put(url_handalbay_update_form_eval, body)
@@ -166,7 +166,7 @@ app.post("/webhook", (req, res) => {
     });
     
   }else{
-    res.status(404)
+    res.status(404).send('Evento no reconocido');
   }
   /*axios.post(url_handalbay, body)
     .then(response => {
