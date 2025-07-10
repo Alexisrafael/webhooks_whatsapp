@@ -135,7 +135,7 @@ app.post("/webhook", (req, res) => {
           to: from,
           type: "text",
           text: { 
-            body: "Gracias por tu mensaje pero la respuesta es limitada, debes reponder con algunas de las opcines antes dichas."
+            body: "¡Gracias por escribirnos! Para ayudarte mejor, necesitamos que respondas usando una de las opciones que te mostramos antes 😊."
           },
         },
         headers: { "Content-Type": "application/json" },
