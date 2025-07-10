@@ -26,7 +26,7 @@ app.post("/webhook", (req, res) => {
   let body = req.body;
 
   // Check the Incoming webhook message
-  //console.log(JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(req.body, null, 2));
   //from: req.body.entry[0].changes[0].value.messages[0] ? req.body.entry[0].changes[0].value.messages[0].from : null,
   //console.log(req.body)
   
